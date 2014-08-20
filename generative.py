@@ -39,6 +39,14 @@ def sigmoid(x):
 
 ###############################################################################
 
+#def POSH(Gamma, params, S, O):
+#
+#
+#
+##edef
+
+###############################################################################
+
 def St_St1(Gamma, params, St, St_1):
   """
   P = St_St1(Gamma, St, St_1, params)
@@ -223,6 +231,20 @@ def psi_gen(state):
 
 ###############################################################################
 
+def o_gen(state, mu0=0, stdev0=1, mu1=3, stdev1=1):
+
+  if state == 0:
+    O = np.random.normal(mu0, stdev0);
+  else:
+    O = np.random.normal(mu1, stdev1);
+  #fi
+
+  return O;
+
+#edef
+
+###############################################################################
+
 def gen_observables(K, S):
   """
   O = gen_observables(K, S)
@@ -243,7 +265,7 @@ def gen_observables(K, S):
   O = np.zeros((K, T));
 
   if K < nsigs:
-    print "Error, K must be > nsigs"
+    print "Error, K must be >= nsigs"
     return None;
   #fi
 
@@ -257,7 +279,7 @@ def gen_observables(K, S):
   for (k,j) in enumerate(assignments):
     
     for t in xrange(T):
-      O[k,t] = psi_gen(S[t,j]) #????
+      O[k,t] = o_gen(S[t,j]) #????
   #efor
     
   return O;
